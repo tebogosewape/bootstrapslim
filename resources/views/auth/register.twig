@@ -14,39 +14,54 @@
 				
 					<form action="{{ base_url() }}/register" method="POST" class="form-horizontal" role="form" autocomplete="off">
 					
-						<div class="form-group">
+						<div class="form-group {{ errors.email ? ' has-error' : '' }}">
 							<label class="control-label col-sm-4" for="email">Email Address :</label>
 							<div class="col-sm-8">
-								<input type="email" name="email" id="email" class="form-control" value=""title="">
-							</div>							
+								<input type="email" name="email" id="email" class="form-control" value="{{ old.email }}" title="">
+							</div>
+							{% if ( errors.email ) %}	
+								<div class="text-danger help-block">{{ errors.email | first }}</div>
+							{% endif %}						
 						</div>
 					
-						<div class="form-group">
+						<div class="form-group {{ errors.name ? ' has-error' : '' }}">
 							<label class="control-label col-sm-4" for="name">Name :</label>
 							<div class="col-sm-8">
-								<input type="text" name="name" id="name" class="form-control" value=""title="">
-							</div>							
+								<input type="text" name="name" id="name" class="form-control" value="{{ old.name }}" title="">
+							</div>
+							{% if ( errors.name ) %}	
+								<div class="text-danger help-block">{{ errors.name | first }}</div>
+							{% endif %}								
 						</div>
 					
-						<div class="form-group">
+						<div class="form-group {{ errors.surname ? ' has-error' : '' }}">
 							<label class="control-label col-sm-4" for="surname">Surname :</label>
 							<div class="col-sm-8">
-								<input type="text" name="surname" id="surname" class="form-control" value=""title="">
-							</div>							
+								<input type="text" name="surname" id="surname" class="form-control" value="{{ old.surname }}" title="">
+							</div>
+							{% if ( errors.surname ) %}	
+								<div class="text-danger help-block">{{ errors.surname | first }}</div>
+							{% endif %}								
 						</div>
 					
-						<div class="form-group">
+						<div class="form-group {{ errors.phone_number ? ' has-error' : '' }}">
 							<label class="control-label col-sm-4" for="phone_number">Phone Number :</label>
 							<div class="col-sm-8">
-								<input type="text" name="phone_number" id="phone_number" class="form-control" value=""title="">
-							</div>							
+								<input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ old.phone_number }}" title="">
+							</div>
+							{% if ( errors.phone_number ) %}	
+								<div class="text-danger help-block">{{ errors.phone_number | first }}</div>
+							{% endif %}								
 						</div>
 					
-						<div class="form-group">
+						<div class="form-group {{ errors.password ? ' has-error' : '' }}">
 							<label class="control-label col-sm-4" for="password">Password :</label>
 							<div class="col-sm-8">
-								<input type="password" name="password" id="password" class="form-control" value=""title="">
-							</div>							
+								<input type="password" name="password" id="password" class="form-control" value="" title="">
+							</div>	
+							{% if ( errors.password ) %}	
+								<div class="text-danger help-block">{{ errors.password | first }}</div>
+							{% endif %}							
 						</div>
 					
 						<div class="form-group">

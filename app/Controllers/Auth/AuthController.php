@@ -1,5 +1,8 @@
 <?php namespace App\Controllers\Auth ;
 
+
+	use Respect\Validation\Validator as v ;
+
 	use App\Controllers\Controller ;
 
 	use App\Models\User ;
@@ -13,6 +16,18 @@
 		}
 
 		public function postRegister( $request, $response ) {
+
+			$validation 				= $this->validator->validate( $request, [
+				'email'					=> v::notEmpty()->email(),
+				'name'					=> v::notEmpty()->alpha(),
+				'surname'				=> v::notEmpty()->alpha(),
+				'phone_number'			=> v::notEmpty()->numeric(),
+				'password'				=> v::notEmpty(),
+			]) ;
+
+			if ( $validation->failed() ) {
+				return $response->withRedirect( $this->router->pathFor( 'register' ) ) ;
+			}
 
 			User::create([
 				'email'					=> $request->getParam( 'email' ),
@@ -34,7 +49,7 @@
 
 		public function postLogin( $request, $response ) {
 
-			var_dump( $request ) ;
+
 
 		}
 

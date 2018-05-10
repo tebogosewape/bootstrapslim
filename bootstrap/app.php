@@ -1,4 +1,6 @@
 <?php 
+
+	session_start() ;
 	
 	require __DIR__ . "/../vendor/autoload.php" ;
 
@@ -43,6 +45,11 @@
 
 	$container['db'] 				= function( $container ) use ( $capsule ) { return $capsule ; } ;
 
+	//Register our validation class as a global.
+	#
+
+	$container['validator'] 		= function( $container ) { return new App\Validation\Validator ; } ;
+
 	// Register Twig View helper
 	//
 	$container['view'] 				= function ( $c ) {
@@ -74,5 +81,8 @@
 	//
 	$container['HomeController'] = function( $container ) { return new \App\Controllers\HomeController( $container ) ; } ;
 	$container['AuthController'] = function( $container ) { return new \App\Controllers\Auth\AuthController( $container ) ; } ;
+
+	$app->add( new \App\Middleware\ValidationMiddleware( $container ) ) ;
+	$app->add( new \App\Middleware\InputRestoreMiddleware( $container ) ) ;
 
 	require __DIR__ . "/../routes/web.php" ;
