@@ -4,8 +4,12 @@
 	 * This is where you put all your routes.
 	 */
 	 
-	$app->get( '/', function( $request, $response ) {
+	$app->get( '/', 'HomeController:index' )->setName('home') ;
+	
+	$app->get( '/register', 'AuthController:register' )->setName('register') ;
+	$app->post( '/register', 'AuthController:postRegister' ) ;
 
-		return "Welcome to slimframework bootstrapped to start working, rather than setting up things." ;
+	$app->get( '/login', 'AuthController:login' )->setName('login') ;
+	$app->post( '/login', 'AuthController:postLogin' ) ;
 
-	});
+
