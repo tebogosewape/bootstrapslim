@@ -12,4 +12,6 @@
 	$app->get( '/login', 'AuthController:login' )->setName('login') ;
 	$app->post( '/login', 'AuthController:postLogin' ) ;
 
+	$app->get( '/logout', 'AuthController:logout' ) ;
+
 

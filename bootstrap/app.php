@@ -1,6 +1,8 @@
 <?php 
 
 	session_start() ;
+
+	use Respect\Validation\Validator as v ;
 	
 	require __DIR__ . "/../vendor/autoload.php" ;
 
@@ -45,6 +47,10 @@
 
 	$container['db'] 				= function( $container ) use ( $capsule ) { return $capsule ; } ;
 
+	//Auth class binding.
+	//
+	$container['auth'] = function( $container ) { return new \App\Auth\Auth ; } ;
+
 	//Register our validation class as a global.
 	#
 
@@ -52,13 +58,13 @@
 
 	// Register Twig View helper
 	//
-	$container['view'] 				= function ( $c ) {
+	$container['view'] 				= function ( $container ) {
 
 	    $view 						= new \Slim\Views\Twig( __DIR__ . '/../resources/views', [
 	        'cache' 				=> false,
 	    ]);
 	    // Instantiate and add Slim specific extension
-	    $router 					= $c->get('router');
+	    $router 					= $container->get('router');
 
 	    $uri 						= \Slim\Http\Uri::createFromEnvironment( 
 	    	new \Slim\Http\Environment( $_SERVER ) 
@@ -73,6 +79,13 @@
 
 		) ;
 
+		$view->getEnvironment()->addGlobal( 'auth', [
+
+			'check' 				=> $container->auth->check(),
+			'user' 					=> $container->auth->user(),
+
+		] ) ;
+
 	    return $view;
 	    
 	} ;
@@ -82,7 +95,18 @@
 	$container['HomeController'] = function( $container ) { return new \App\Controllers\HomeController( $container ) ; } ;
 	$container['AuthController'] = function( $container ) { return new \App\Controllers\Auth\AuthController( $container ) ; } ;
 
+	//CSRF binding.
+	//
+	$container['csrf'] = function( $container ) { return new \Slim\Csrf\Guard ; } ;
+
+	//Binding routes to middleware.
+	//
 	$app->add( new \App\Middleware\ValidationMiddleware( $container ) ) ;
 	$app->add( new \App\Middleware\InputRestoreMiddleware( $container ) ) ;
+	$app->add( new \App\Middleware\CsrfMiddleware( $container ) ) ;
+
+	$app->add( $container->csrf ) ;
+
+	v::with( 'App\\Validation\\Rules\\' ) ;
 
 	require __DIR__ . "/../routes/web.php" ;
