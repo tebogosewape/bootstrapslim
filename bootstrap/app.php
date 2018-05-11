@@ -6,27 +6,32 @@
 	
 	require __DIR__ . "/../vendor/autoload.php" ;
 
+	//Call all the configuration files.
+	//
+
+	$configuration_directory 		= __DIR__ . '/../config/' ;
+
+	$configuration_files 			= [ 'app.php', 'database.php', 'mail.php', ] ;
+
+	$configuration 					= [] ;
+
+	foreach ( $configuration_files as $file ) {
+		
+		if ( file_exists( $configuration_directory . $file ) ) {
+
+			$configuration 			= array_merge_recursive( 
+
+				$configuration, 
+				require $configuration_directory . $file  
+			) ;
+
+		}
+
+	}
+
 	$app 							= new \Slim\App([
 
-		'settings' 					=> [
-
-			'displayErrorDetails' 	=> true,
-
-			//Configurations for eloquent.
-			//
-			'db'					=> [
-
-				'driver'			=> 'mysql',
-				'host'				=> 'localhost',
-				'database'			=> 'milk_and_honey_db',
-				'username'			=> 'root',
-				'password'			=> '450411@tjS',
-				'charset'			=> 'utf8',
-				'collation'			=> 'utf8_unicode_ci',
-				'prefix' 			=> '',
-
-			],
-		] ,
+		'settings' 					=> $configuration ,
 
 	]) ;
 
@@ -49,7 +54,7 @@
 
 	//Auth class binding.
 	//
-	$container['auth'] = function( $container ) { return new \App\Auth\Auth ; } ;
+	$container['auth'] 				= function( $container ) { return new \App\Auth\Auth ; } ;
 
 	//Register our validation class as a global.
 	#
@@ -89,6 +94,7 @@
 		] ) ;
 
 		$view->getEnvironment()->addGlobal( 'flash', $container->flash ) ;
+		$view->getEnvironment()->addGlobal( 'app_name', $container['settings']['app_name'] ) ;
 
 	    return $view;
 	    
@@ -101,7 +107,36 @@
 
 	//CSRF binding.
 	//
-	$container['csrf'] = function( $container ) { return new \Slim\Csrf\Guard ; } ;
+	$container['csrf'] 			= function( $container ) { return new \Slim\Csrf\Guard ; } ;
+
+
+	$container['mailer'] 		= function ($container) {
+
+		$mailer 				= new \PHPMailer\PHPMailer\PHPMailer() ;
+
+		$mailer->IsSMTP();
+
+		$mail->SMTPOptions 		= [
+		    'ssl' 				=> [
+		        'verify_peer' 	=> false,
+		        'verify_peer_name' => false,
+		        'allow_self_signed' => true
+		    ]
+		] ;
+
+		//$mailer->SMTPDebug 		= $container['settings']['debug']; //needed for testing.
+		$mailer->SetFrom( 'milkandhoney20180505@gmail.com' ); 
+
+		$mailer->Host 			= $container['settings']['host'] ;
+		$mailer->SMTPAuth 		= $container['settings']['auth'] ;                 // I set false for localhost
+		$mailer->SMTPSecure 	= $container['settings']['secure'] ;              // set blank for localhost
+		$mailer->Port 			= $container['settings']['port'] ;                           // 25 for local host
+		$mailer->Username 		= $container['settings']['username'] ;    // I set sender email in my mailer call
+		$mailer->Password 		= $container['settings']['password'] ;
+		$mailer->isHTML( true ) ;
+
+		return new \App\Mail\Mailer( $container->view, $mailer );
+	};
 
 	//Binding routes to middleware.
 	//

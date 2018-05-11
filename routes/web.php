@@ -11,6 +11,7 @@
 	$app->group( '', function() {
 
 		$this->get( '/', 				'HomeController:index' )->setName('home') ;
+		$this->get( '/sendmail', 				'HomeController:sendmail' )->setName('sendmail') ;
 		
 		$this->get( '/register', 		'AuthController:register' )->setName('register') ;
 		$this->post( '/register', 		'AuthController:postRegister' ) ;
