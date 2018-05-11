@@ -56,6 +56,8 @@
 
 	$container['validator'] 		= function( $container ) { return new App\Validation\Validator ; } ;
 
+	$container['flash'] 			= function () { return new \Slim\Flash\Messages() ; } ;
+
 	// Register Twig View helper
 	//
 	$container['view'] 				= function ( $container ) {
@@ -85,6 +87,8 @@
 			'user' 					=> $container->auth->user(),
 
 		] ) ;
+
+		$view->getEnvironment()->addGlobal( 'flash', $container->flash ) ;
 
 	    return $view;
 	    

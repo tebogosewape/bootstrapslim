@@ -22,7 +22,7 @@
 								<input type="email" name="email" id="email" class="form-control" value="{{ old.email }}" title="">
 							</div>
 							{% if ( errors.email ) %}	
-								<div class="text-danger help-block">{{ errors.email | first }}</div>
+								<span class="text-danger help-block text-center">{{ errors.email | first }}</span>
 							{% endif %}						
 						</div>
 					
@@ -32,7 +32,7 @@
 								<input type="text" name="name" id="name" class="form-control" value="{{ old.name }}" title="">
 							</div>
 							{% if ( errors.name ) %}	
-								<div class="text-danger help-block">{{ errors.name | first }}</div>
+								<span class="text-danger help-block text-center">{{ errors.name | first }}</span>
 							{% endif %}								
 						</div>
 					
@@ -42,7 +42,7 @@
 								<input type="text" name="surname" id="surname" class="form-control" value="{{ old.surname }}" title="">
 							</div>
 							{% if ( errors.surname ) %}	
-								<div class="text-danger help-block">{{ errors.surname | first }}</div>
+								<span class="text-danger help-block text-center">{{ errors.surname | first }}</span>
 							{% endif %}								
 						</div>
 					
@@ -52,7 +52,7 @@
 								<input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ old.phone_number }}" title="">
 							</div>
 							{% if ( errors.phone_number ) %}	
-								<div class="text-danger help-block">{{ errors.phone_number | first }}</div>
+								<span class="text-danger help-block text-center">{{ errors.phone_number | first }}</span>
 							{% endif %}								
 						</div>
 					
@@ -62,7 +62,7 @@
 								<input type="password" name="password" id="password" class="form-control" value="" title="">
 							</div>	
 							{% if ( errors.password ) %}	
-								<div class="text-danger help-block">{{ errors.password | first }}</div>
+								<span class="text-danger help-block text-center">{{ errors.password | first }}</span>
 							{% endif %}							
 						</div>
 					
