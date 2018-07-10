@@ -2,12 +2,12 @@
 
 	return [
 		
-		'host' 				=> 'smtp.gmail.com',
-		'debug' 			=> 1,
-		'port' 				=> 587,
-		'secure' 			=> 'tls',
-		'auth' 				=> true,
-		'username' 			=> 'milkandhoney20180505@gmail.com',
-		'password' 			=> '450411@tjS',
+		'host' 				=> getenv( 'EMAIL_HOST' ),
+		'debug' 			=> getenv( 'EMAIL_DEBUG' ),
+		'port' 				=> getenv( 'EMAIL_PORT' ),
+		'secure' 			=> getenv( 'EMAIL_SECURE' ),
+		'auth' 				=> getenv( 'EMAIL_AUTH' ),
+		'username' 			=> getenv( 'EMAIL_USER' ),
+		'password' 			=> getenv( 'EMAIL_PASSWORD' ),
 
 	] ;

@@ -6,6 +6,11 @@
 	
 	require __DIR__ . "/../vendor/autoload.php" ;
 
+	#die(__DIR__) ;
+
+	$dotenv 						= new Dotenv\Dotenv( __DIR__ . '/../' ) ;
+	$dotenv->load() ;
+
 	//Call all the configuration files.
 	//
 
@@ -34,6 +39,8 @@
 		'settings' 					=> $configuration ,
 
 	]) ;
+
+	date_default_timezone_set ( $container['settings']['timezone'] ) ;
 
 	// Fetch DI Container
 	//
