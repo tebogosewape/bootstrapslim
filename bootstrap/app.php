@@ -49,10 +49,16 @@
 	//Create an Eloquent instance.
 	//
 
-	$capsule 						= new \Illuminate\Database\Capsule\Manager ;
-	$capsule->addConnection( $container['settings']['db'] ) ;
-	$capsule->setAsGlobal() ;
-	$capsule->bootEloquent() ;
+	try {
+
+		$capsule 						= new \Illuminate\Database\Capsule\Manager ;
+		$capsule->addConnection( $container['settings']['db'] ) ;
+		$capsule->setAsGlobal() ;
+		$capsule->bootEloquent() ;
+
+	} catch( Illuminate\Database\QueryException $exception ) {
+
+	}
 
 	//Register capsule on the container.
 	//
@@ -102,6 +108,7 @@
 
 		$view->getEnvironment()->addGlobal( 'flash', $container->flash ) ;
 		$view->getEnvironment()->addGlobal( 'app_name', $container['settings']['app_name'] ) ;
+		$view->getEnvironment()->addGlobal( 'Carbon', new Carbon\Carbon ) ;
 
 	    return $view;
 	    

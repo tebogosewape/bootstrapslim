@@ -24,6 +24,8 @@
 		<div class="container">
 			{% include( 'partials/flash.twig' ) %}
 
+			<h1 class="page-header center-block">I'm displaying this using {{ Carbon.now() }} Carbon.now()</h1>
+
 		    {% block content %} {% endblock content %}
 		</div>
 
