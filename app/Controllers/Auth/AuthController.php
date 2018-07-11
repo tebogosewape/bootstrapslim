@@ -11,7 +11,13 @@
 
 		public function register( $request, $response ) {
 
-			return $this->view->render( $response, 'auth/register.twig', [] );
+			$data 						= [
+
+				'title' 				=> 'Registration',
+
+			] ;
+
+			return $this->view->render( $response, 'auth/register.twig', $data );
 
 		}
 
@@ -51,7 +57,13 @@
 
 		public function login( $request, $response ) {
 
-			return $this->view->render( $response, 'auth/login.twig', [] );
+			$data 						= [
+
+				'title' 				=> 'Login',
+
+			] ;
+
+			return $this->view->render( $response, 'auth/login.twig', $data );
 
 		}
 
@@ -70,6 +82,23 @@
 			$this->flash->addMessage( 'warning', 'Wrong combination to authenticate to the account.' ) ;
 
 			return $response->withRedirect( $this->router->pathFor( 'login' ) ) ;
+
+		}
+
+		public function reset( $request, $response ) {
+
+			$data 						= [
+
+				'title' 				=> 'Forgot Password',
+
+			] ;
+
+			return $this->view->render( $response, 'auth/reset.twig', $data );
+
+		}
+
+		public function postReset( $request, $response ) {
+
 
 		}
 

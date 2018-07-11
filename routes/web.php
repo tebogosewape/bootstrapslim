@@ -10,14 +10,17 @@
 
 	$app->group( '', function() {
 
-		$this->get( '/', 				'HomeController:index' )->setName('home') ;
-		$this->get( '/sendmail', 				'HomeController:sendmail' )->setName('sendmail') ;
+		$this->get( '/', 							'HomeController:index' )->setName('home') ;
+		$this->get( '/sendmail', 					'HomeController:sendmail' )->setName('sendmail') ;
 		
-		$this->get( '/register', 		'AuthController:register' )->setName('register') ;
-		$this->post( '/register', 		'AuthController:postRegister' ) ;
+		$this->get( '/register', 					'AuthController:register' )->setName('register') ;
+		$this->post( '/register', 					'AuthController:postRegister' ) ;
 
-		$this->get( '/login', 			'AuthController:login' )->setName('login') ;
-		$this->post( '/login', 			'AuthController:postLogin' ) ;
+		$this->get( '/login', 						'AuthController:login' )->setName('login') ;
+		$this->post( '/login', 						'AuthController:postLogin' ) ;
+
+		$this->get( '/password/reset', 				'AuthController:reset' )->setName('reset') ;
+		$this->post( '/password/reset', 			'AuthController:postReset' ) ;
 
 	})->add( new GuestMiddleware( $container ) ) ;
 
