@@ -38,6 +38,12 @@
 
 		}
 
+		public function id() {
+
+			return $_SESSION['user'] ;
+
+		}
+
 		public function user() {
 
 			return User::find( isset( $_SESSION['user'] ) ) ;

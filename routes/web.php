@@ -30,6 +30,10 @@
 	$app->group( '', function() {
 
 		$this->get( '/dashboard', 					'HomeController:index' )->setName('dashboard') ;
+
+		$this->get( '/profile', 					'ProfileController:index' )->setName('profile') ;
+		$this->post( '/profile', 					'ProfileController:postProfileUpdate' ) ;
+
 		$this->get( '/logout', 						'AuthController:logout' ) ;
 
 	})->add( new AuthMiddleware( $container ) ) ;
