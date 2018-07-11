@@ -14,19 +14,12 @@
 
 			$template = 'email/welcome.twig' ;
 
-			try {
-
-				$this->mailer->send( $template, ['data' => 'Tebogo Sewape', 'moreData' => '$moreData'] , function( $message ) use ( $user ) {
-				      $message->to( "sewapetj@gmail.com" ) ;
-				      $message->subject( 'Welcome to milk and honey.' ) ;
-				      $message->from( getenv( "EMAIL_FROM_ADDRESS" ) ) ; // if you want different sender email in mailer call function
-				      $message->fromName( getenv( "EMAIL_FROM_NAME" ) ) ; // if you want different sender name in mailer call function
-				});
-
-			    echo 'Message has been sent';
-			} catch (Exception $e) {
-			    echo 'Message could not be sent. Mailer Error: ', $this->mailer->ErrorInfo;
-			}
+			$this->mailer->send( $template, ['data' => 'Tebogo Sewape', 'moreData' => '$moreData'] , function( $message ) use ( $user ) {
+			      $message->to( "sewapetj@gmail.com" ) ;
+			      $message->subject( 'Welcome to milk and honey.' ) ;
+			      $message->from( getenv( "EMAIL_FROM_ADDRESS" ) ) ;
+			      $message->fromName( getenv( "EMAIL_FROM_NAME" ) ) ;
+			});
 
 		}
 

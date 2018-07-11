@@ -6,8 +6,6 @@
 	
 	require __DIR__ . "/../vendor/autoload.php" ;
 
-	#die(__DIR__) ;
-
 	$dotenv 						= new Dotenv\Dotenv( __DIR__ . '/../' ) ;
 	$dotenv->load() ;
 
@@ -68,6 +66,7 @@
 	//Auth class binding.
 	//
 	$container['auth'] 				= function( $container ) { return new \App\Auth\Auth ; } ;
+	$container['HelpAuth'] 			= function( $container ) { return new \App\Classes\Auth( $container ) ; } ;
 
 	//Register our validation class as a global.
 	#
@@ -108,6 +107,8 @@
 
 		$view->getEnvironment()->addGlobal( 'flash', $container->flash ) ;
 		$view->getEnvironment()->addGlobal( 'app_name', $container['settings']['app_name'] ) ;
+		$view->getEnvironment()->addGlobal( 'app_url', $container['settings']['app_url'] ) ;
+		$view->getEnvironment()->addGlobal( 'contact_details', $container['settings']['contact_details'] ) ;
 		$view->getEnvironment()->addGlobal( 'Carbon', new Carbon\Carbon ) ;
 
 	    return $view;
@@ -116,37 +117,37 @@
 
 	//Binding routes to controllers
 	//
-	$container['HomeController'] = function( $container ) { return new \App\Controllers\HomeController( $container ) ; } ;
-	$container['AuthController'] = function( $container ) { return new \App\Controllers\Auth\AuthController( $container ) ; } ;
+	$container['HomeController'] 		= function( $container ) { return new \App\Controllers\HomeController( $container ) ; } ;
+	$container['AuthController'] 		= function( $container ) { return new \App\Controllers\Auth\AuthController( $container ) ; } ;
 
 	//CSRF binding.
 	//
-	$container['csrf'] 			= function( $container ) { return new \Slim\Csrf\Guard ; } ;
+	$container['csrf'] 					= function( $container ) { return new \Slim\Csrf\Guard ; } ;
 
 
-	$container['mailer'] 		= function ($container) {
+	$container['mailer'] 				= function ($container) {
 
-		$mailer 				= new \PHPMailer\PHPMailer\PHPMailer() ;
+		$mailer 						= new \PHPMailer\PHPMailer\PHPMailer() ;
 
 		$mailer->IsSMTP();
 
-		$mail->SMTPOptions 		= [
-		    'ssl' 				=> [
-		        'verify_peer' 	=> false,
-		        'verify_peer_name' => false,
-		        'allow_self_signed' => true
+		$mail->SMTPOptions 				= [
+		    'ssl' 						=> [
+		        'verify_peer' 			=> false,
+		        'verify_peer_name' 		=> false,
+		        'allow_self_signed' 	=> true
 		    ]
 		] ;
 
-		//$mailer->SMTPDebug 		= $container['settings']['debug']; //needed for testing.
-		$mailer->SetFrom( 'milkandhoney20180505@gmail.com' ); 
+		//$mailer->SMTPDebug 				= $container['settings']['debug']; //needed for testing.
+		$mailer->SetFrom( $container['settings']['username'] ); 
 
-		$mailer->Host 			= $container['settings']['host'] ;
-		$mailer->SMTPAuth 		= $container['settings']['auth'] ;                 // I set false for localhost
-		$mailer->SMTPSecure 	= $container['settings']['secure'] ;              // set blank for localhost
-		$mailer->Port 			= $container['settings']['port'] ;                           // 25 for local host
-		$mailer->Username 		= $container['settings']['username'] ;    // I set sender email in my mailer call
-		$mailer->Password 		= $container['settings']['password'] ;
+		$mailer->Host 					= $container['settings']['host'] ;
+		$mailer->SMTPAuth 				= $container['settings']['auth'] ;                 // I set false for localhost
+		$mailer->SMTPSecure 			= $container['settings']['secure'] ;              // set blank for localhost
+		$mailer->Port 					= $container['settings']['port'] ;                           // 25 for local host
+		$mailer->Username 				= $container['settings']['username'] ;    // I set sender email in my mailer call
+		$mailer->Password 				= $container['settings']['password'] ;
 		$mailer->isHTML( true ) ;
 
 		return new \App\Mail\Mailer( $container->view, $mailer );

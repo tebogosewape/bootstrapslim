@@ -7,5 +7,7 @@
 		'displayErrorDetails' 	=> getenv( 'APP_DEBUG' ),
 		'production' 			=> getenv( 'APP_PRODUCTION' ),
 		'timezone'				=> getenv( 'APP_TIMEZONE' ),
+		
+		'contact_details'		=> getenv( 'CONTACT_DETAILS' ),
 
 	] ;

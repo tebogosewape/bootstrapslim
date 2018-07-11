@@ -10,7 +10,7 @@
 		
 		protected $fillable = [
 
-			'name', 'surname', 'email', 'phone_number', 'password',
+			'name', 'surname', 'email', 'phone_number', 'password', 'referral_code', 'is_active', 'email_token',
 
 		] ;
 

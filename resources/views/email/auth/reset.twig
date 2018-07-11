@@ -1,0 +1,9 @@
+{% extends "email.twig" %}
+
+{% block content %}
+
+	Hi {{ user.name }} {{ user.surname }},
+
+	<br><br>A password reset request was made on your behalf to complete the request, please click the link below.
+
+{% endblock %}

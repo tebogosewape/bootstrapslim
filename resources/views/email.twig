@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <body style="background-color: #222533; padding: 20px; font-family: font-size: 14px; line-height: 1.43; font-family: &quot;Helvetica Neue&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif;">
+        <div style="max-width: 600px; margin: 0px auto; background-color: #fff; box-shadow: 0px 20px 50px rgba(0,0,0,0.05);">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="padding-left: 50px; text-align: right; padding-right: 20px;">
+                        <a href="{{ base_url() }}/login" style="padding: 5px 15px; background-color: blue; color: #fff; font-weight: bolder; font-size: 14px; display: inline-block; margin: 20px 0px; margin-right: 20px; text-decoration: none;">
+                            Sign In
+                        </a>
+                        <a href="{{ base_url() }}/password/reset" style="padding: 5px 15px; background-color: green; color: #fff; font-weight: bolder; font-size: 14px; display: inline-block; margin: 20px 0px; margin-right: 20px; text-decoration: none;">
+                            Forgot Password
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            
+            <div style="padding: 60px 70px;">
+                <div style="color: #636363; font-size: 14px;">
+                    {% block content %} {% endblock content %}
+                </div>
+                {% if email_build.btn_url != false %}
+                    <a href="{{ email_build.btn_url }}" style="padding: 5px 15px; border: 1px solid #ccc ; background-color: #{{ email_build.btn_color }}; color: #ccc; font-weight: bolder; font-size: 14px; display: inline-block; margin: 20px 0px; margin-right: 20px; text-decoration: none;">
+                        {{ email_build.btn_text }}
+                    </a>
+                {% endif %}
+                {% if email_build.email_extra_content != false %}
+                    <div style="color: #636363; font-size: 14px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.05); margin-bottom: 50px;">
+                        {{ email_build.email_extra_content }}
+                    </div>
+                {% endif %}
+                <h6 style="margin-bottom: 10px;">Contact US</h6>
+                <div style="color: #A5A5A5; font-size: 12px;">
+                    <p>
+                        If you have any questions you can simply find our contact information below. Also contact us at
+                        <a href="#" style="text-decoration: underline; color: #4B72FA;">{{ contact_details }}</a>
+                    </p>
+                </div>
+            </div>
+            <div style="background-color: #F5F5F5; padding: 40px; text-align: center;">
+                <div style="margin-bottom: 20px;">
+                    <a href="{{ base_url() }}/contact_us" style="text-decoration: underline; font-size: 14px; letter-spacing: 1px; margin: 0px 15px; color: #261D1D;">
+                        Contact Us
+                    </a>
+                </div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.05);">
+                    <div style="color: #A5A5A5; font-size: 10px;">Copyright 2018 {{ app_name }}. All rights reserved.</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -22,12 +22,15 @@
 		$this->get( '/password/reset', 				'AuthController:reset' )->setName('reset') ;
 		$this->post( '/password/reset', 			'AuthController:postReset' ) ;
 
+		$this->get( '/reset/{email_token}', 		'AuthController:reset_password' ) ;
+		$this->post( '/reset/password', 			'AuthController:postPasswordReset' ) ;
+
 	})->add( new GuestMiddleware( $container ) ) ;
 
 	$app->group( '', function() {
 
-		$this->get( '/dashboard', 		'HomeController:index' )->setName('dashboard') ;
-		$this->get( '/logout', 			'AuthController:logout' ) ;
+		$this->get( '/dashboard', 					'HomeController:index' )->setName('dashboard') ;
+		$this->get( '/logout', 						'AuthController:logout' ) ;
 
 	})->add( new AuthMiddleware( $container ) ) ;
 
