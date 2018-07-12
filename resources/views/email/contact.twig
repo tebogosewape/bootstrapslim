@@ -1,0 +1,13 @@
+{% extends "email.twig" %}
+
+{% block content %}
+
+	Message From:  {{ contact_details.name }} {{ contact_details.surname }},
+	Phone Number:  {{ contact_details.phone_number }},
+	Email Address:  {{ contact_details.email }},
+
+	<br><br>Topic<hr>{{ contact_details.subject }}
+	<br>{{ contact_details.body }}
+ 
+
+{% endblock %}

@@ -14,21 +14,23 @@
         <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
             <ul class="nav navbar-nav">
                 <li><a href="#">About</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="{{ base_url() }}/contact_us">Contact Us</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if auth.check != true %}
-                <li><a href="{{ base_url() }}/login">Login</a></li>
-                <li><a href="{{ base_url() }}/register">Register</a></li>
+                    <li><a href="{{ base_url() }}/login">Login</a></li>
+                    <li><a href="{{ base_url() }}/register">Register</a></li>
                 {% else %}
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ base_url() }}/profile">Profile</a></li>
-                        <li><a href="{{ base_url() }}/password/update">Change Password</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{ base_url() }}/logout">Logout</a></li>
-                    </ul>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{ auth.user.name }} {{ auth.user.surname }} 
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ base_url() }}/profile">Profile</a></li>
+                            <li><a href="{{ base_url() }}/password/update">Change Password</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ base_url() }}/logout">Logout</a></li>
+                        </ul>
                 </li>
             {% endif %}
             </ul>

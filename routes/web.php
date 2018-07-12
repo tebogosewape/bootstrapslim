@@ -11,7 +11,6 @@
 	$app->group( '', function() {
 
 		$this->get( '/', 							'HomeController:index' )->setName('home') ;
-		$this->get( '/sendmail', 					'HomeController:sendmail' )->setName('sendmail') ;
 		
 		$this->get( '/register', 					'AuthController:register' )->setName('register') ;
 		$this->post( '/register', 					'AuthController:postRegister' ) ;
@@ -24,6 +23,9 @@
 
 		$this->get( '/reset/{email_token}', 		'AuthController:reset_password' ) ;
 		$this->post( '/reset/password', 			'AuthController:postPasswordReset' ) ;
+
+		$this->get( '/contact_us', 					'ContactController:index' )->setName('contact') ;
+		$this->post( '/contact_us', 				'ContactController:postContact' ) ;
 
 	})->add( new GuestMiddleware( $container ) ) ;
 
@@ -40,7 +42,3 @@
 		$this->get( '/logout', 						'AuthController:logout' ) ;
 
 	})->add( new AuthMiddleware( $container ) ) ;
-
-	
-
-

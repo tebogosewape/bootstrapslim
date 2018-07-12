@@ -68,6 +68,7 @@
 	$container['auth'] 				= function( $container ) { return new \App\Auth\Auth ; } ;
 	
 	$container['HelpAuth'] 			= function( $container ) { return new \App\Classes\Auth( $container ) ; } ;
+	$container['Contact'] 			= function( $container ) { return new \App\Classes\Contact( $container ) ; } ;
 
 	//Register our validation class as a global.
 	#
@@ -120,7 +121,8 @@
 	//Binding routes to controllers
 	//
 	$container['HomeController'] 		= function( $container ) { return new \App\Controllers\HomeController( $container ) ; } ;
-	$container['ProfileController'] 		= function( $container ) { return new \App\Controllers\ProfileController( $container ) ; } ;
+	$container['ContactController'] 	= function( $container ) { return new \App\Controllers\ContactController ( $container ) ; } ;
+	$container['ProfileController'] 	= function( $container ) { return new \App\Controllers\ProfileController( $container ) ; } ;
 	$container['AuthController'] 		= function( $container ) { return new \App\Controllers\Auth\AuthController( $container ) ; } ;
 
 	//CSRF binding.
