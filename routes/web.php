@@ -34,6 +34,9 @@
 		$this->get( '/profile', 					'ProfileController:index' )->setName('profile') ;
 		$this->post( '/profile', 					'ProfileController:postProfileUpdate' ) ;
 
+		$this->get( '/password/update', 			'ProfileController:password_update' )->setName('password_update') ;
+		$this->post( '/password/update', 			'ProfileController:postPasswordUpdate' ) ;
+
 		$this->get( '/logout', 						'AuthController:logout' ) ;
 
 	})->add( new AuthMiddleware( $container ) ) ;
