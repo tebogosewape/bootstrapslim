@@ -40,13 +40,21 @@
 
 		public function id() {
 
-			return $_SESSION['user'] ;
+			if ( isset( $_SESSION['user'] ) )
+
+				return $_SESSION['user'] ;
+
+			return false ;
 
 		}
 
 		public function user() {
 
-			return User::find( isset( $_SESSION['user'] ) ) ;
+			if ( isset( $_SESSION['user'] ) )
+
+				return User::find( $_SESSION['user'] ) ;
+
+			return [] ;
 
 		}
 

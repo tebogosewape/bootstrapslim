@@ -10,9 +10,9 @@
 		public function __invoke( $request, $response, $next )
 		{
 
-			if ( $this->container->auth->check() ) {
+			if ( $this->auth->check() ) {
 
-				return $response->withRedirect( $this->container->router->pathFor( 'dashboard' ) ) ;
+				return $response->withRedirect( $this->router->pathFor( 'dashboard' ) ) ;
 
 			}
 

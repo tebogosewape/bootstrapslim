@@ -10,11 +10,11 @@
 		public function __invoke( $request, $response, $next )
 		{
 
-			if ( !$this->container->auth->check() ) {
+			if ( !$this->auth->check() ) {
 
-				$this->container->flash->addMessage( 'info', 'Sorry you need to be logged in to make this request.' ) ;
+				$this->flash->addMessage( 'info', 'Sorry you need to be logged in to make this request.' ) ;
 
-				return $response->withRedirect( $this->container->router->pathFor( 'login' ) ) ;
+				return $response->withRedirect( $this->router->pathFor( 'login' ) ) ;
 
 			}
 

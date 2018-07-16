@@ -38,11 +38,13 @@
 
 	]) ;
 
-	date_default_timezone_set ( $container['settings']['timezone'] ) ;
-
 	// Fetch DI Container
 	//
 	$container 						= $app->getContainer() ;
+
+	//Set Global TimeZone
+	//
+	date_default_timezone_set ( $container['settings']['timezone'] ) ;
 
 	//Create an Eloquent instance.
 	//
@@ -136,7 +138,7 @@
 
 		$mailer->IsSMTP();
 
-		$mail->SMTPOptions 				= [
+		$mailer->SMTPOptions 			= [
 		    'ssl' 						=> [
 		        'verify_peer' 			=> false,
 		        'verify_peer_name' 		=> false,

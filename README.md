@@ -1,11 +1,12 @@
-# Bootstrap Slim
+# Bootstrap <a href="https://www.slimframework.com/" >Slim Framework</a> - MVC with <a href="https://www.slimframework.com/" >Slim Framework</a>
+
 
 <p>
-	<strong>NOTE:</strong> This is not a new framework, this is a boilerplat to quickly bootstrap a new slim framework and use a Laravel like syntax.
+	<strong>NOTE:</strong> This is not a new framework, this is a boilerplat to quickly bootstrap a new <a href="https://www.slimframework.com/" >Slim Framework</a> and use a <a href="https://laravel.com/" >Laravel</a> like syntax.
 	<br />
-	<strong>If you are looking for slimframework this is not the page.</strong>
+	<strong>If you are looking for <a href="https://www.slimframework.com/" >Slim Framework</a> this is not the page this is <a href="https://www.slimframework.com/" >Slim Framework</a>.</strong>
 	<br />
-	This boilerplate, has bootstrap 3 ready to go, Laravel Like structure and controllers.
+	This boilerplate, has <a href="https://getbootstrap.com/docs/3.3/" >Bootstrap 3</a> ready to go, <a href="https://laravel.com/" >Laravel</a> Like structure and controllers.
 </p>
 
 <h4>Requirements</h4>
@@ -25,27 +26,3 @@
 </p>
 <h4>Author:</h4>
 <p><a href="#"><em>Tebogo Sewape</em></a></p>
-
-<h4>Inspired By:</h4>
-<p>CodeCourse Tutorials</p>
-
-#REMOVE WHEN DONE.
-<p>TODO:</p>
-<ol>
-	<li><quote>Middleware Validation check if is set.</quote></li>
-	<li><quote>Middleware InputRestore check if is set</quote></li>
-	<li><quote>
-
-			Parent Middleware add set property.<br>
-			public function __get( $property ) {
-
-				if ( $this->container->{$property} ) {
-
-					return $this->container->{$property} ;
-
-				}
-			}
-
-		</quote>
-	</li>
-</ol>

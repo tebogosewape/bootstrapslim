@@ -9,10 +9,14 @@
 		
 		public function __invoke( $request, $response, $next )
 		{
-			
-			$this->container->view->getEnvironment()->addGlobal( 'old', $_SESSION['old'] ) ;
 
-			$_SESSION['old'] = $request->getParams() ;
+			if ( isset( $_SESSION['old'] ) ) {
+
+				$this->view->getEnvironment()->addGlobal( 'old', $_SESSION['old'] ) ;
+
+				$_SESSION['old'] = $request->getParams() ;
+
+			}
 
 			return $next( $request, $response ) ;
 

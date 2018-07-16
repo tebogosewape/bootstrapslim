@@ -25,4 +25,10 @@
 
         }
 
+        public function ClearAllRecipients( ) {
+
+            $this->mailer->ClearAllRecipients() ;
+            
+        }
+
     }
