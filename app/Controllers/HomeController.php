@@ -1,12 +1,15 @@
 <?php namespace App\Controllers ;
 
+	use App\Models\User ;
+
 	class HomeController extends Controller {
 
 		public function index( $request, $response ) {
 
 			$data 								= [
 
-				'title' 						=> 'Home',
+				'title' 						=> 'Dashboard',
+				'users'							=> User::paginate(1),
 
 			] ;
 

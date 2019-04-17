@@ -139,8 +139,10 @@
 	    
 	} ;
 
+
 	//Binding routes to controllers
 	//
+	$container['FrontendController'] 	= function( $container ) { return new \App\Controllers\FrontendController( $container ) ; } ;
 	$container['CronController'] 		= function( $container ) { return new \App\Controllers\CronController( $container ) ; } ;
 	$container['HomeController'] 		= function( $container ) { return new \App\Controllers\HomeController( $container ) ; } ;
 	$container['ContactController'] 	= function( $container ) { return new \App\Controllers\ContactController ( $container ) ; } ;
@@ -194,6 +196,7 @@
 	$app->add( new \App\Middleware\ValidationMiddleware( $container ) ) ;
 	$app->add( new \App\Middleware\InputRestoreMiddleware( $container ) ) ;
 	$app->add( new \App\Middleware\CsrfMiddleware( $container ) ) ;
+	$app->add( new \App\Middleware\Pagination( $container ) ) ;
 
 	$app->add( $container->csrf ) ;
 
@@ -218,6 +221,15 @@
 
 	       	$response 					= new \Slim\Http\Response( 500 ) ;
 	        $container->logger->addError( $exception ) ;
+
+	        $body 						= [ 'error' => $exception->getMessage() ] ;
+
+	        if ( $container['settings']['production'] ) {
+	        	
+	        	$body 					= [] ;
+
+	        }
+
 	        return $container->view->render( $response, 'errors/error.twig', [ 'error' => $exception->getMessage() ] ) ;
 
 	    };
@@ -228,6 +240,15 @@
 
 	    	$response 					= new \Slim\Http\Response( 500 ) ;
 	        $container->logger->addError( $error ) ;
+
+	        $body 						= [ 'error' => $error ] ;
+
+	        if ( $container['settings']['production'] ) {
+	        	
+	        	$body 					= [] ;
+
+	        }
+
 	        return $container->view->render( $response, 'errors/error.twig', [ 'error' => $error ] ) ;
 
 	    };

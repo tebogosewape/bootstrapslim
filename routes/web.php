@@ -10,7 +10,7 @@
 
 	$app->group( '', function() {
 
-		$this->get( '/', 							'HomeController:index' )->setName('home') ;
+		$this->get( '/', 							'FrontendController:index' )->setName('home') ;
 		
 		$this->get( '/register', 					'AuthController:register' )->setName('register') ;
 		$this->post( '/register', 					'AuthController:postRegister' ) ;

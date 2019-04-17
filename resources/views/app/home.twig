@@ -12,7 +12,15 @@
 
 				<div class="panel-body">
 				
+					<ul>
 
+						{% for user in users %}
+						    <li>{{ user.name }} {{ user.surname }} - {{ user.phone }}</li>
+						{% endfor %}
+					
+					</ul>
+				
+					{{ users.render('pagination.twig') | raw }}
 
 				</div>
 
