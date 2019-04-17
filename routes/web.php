@@ -27,6 +27,8 @@
 		$this->get( '/contact_us', 					'ContactController:index' )->setName('contact') ;
 		$this->post( '/contact_us', 				'ContactController:postContact' ) ;
 
+		$this->get( '/cron/send/mail', 				'CronController:sendMail' )->setName('send_mail') ;
+
 	})->add( new GuestMiddleware( $container ) ) ;
 
 	$app->group( '', function() {

@@ -64,6 +64,8 @@
 
 		public function login( $request, $response ) {
 
+			$this->logger->addWarning( 'Testing monolog - again' ) ;
+
 			$data 								= [
 
 				'title' 						=> 'Login',

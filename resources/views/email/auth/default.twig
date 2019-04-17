@@ -1,0 +1,9 @@
+{% extends "email.twig" %}
+
+{% block content %}
+
+	Hi {{ user.name }},
+
+	{{ body | raw }}
+
+{% endblock %}

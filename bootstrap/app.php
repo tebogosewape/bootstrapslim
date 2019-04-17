@@ -32,15 +32,27 @@
 
 	}
 
-	$app 							= new \Slim\App([
+	$app 								= new \Slim\App([
 
-		'settings' 					=> $configuration ,
+		'settings' 						=> $configuration ,
 
 	]) ;
 
 	// Fetch DI Container
 	//
-	$container 						= $app->getContainer() ;
+	$container 							= $app->getContainer() ;
+
+	//Monolog Config
+	//
+	$container['logger'] 				= function( $container ) { 
+
+	    $logger 						= new \Monolog\Logger( $container['settings']['app_name'] ) ;
+	    $file_handler 					= new \Monolog\Handler\StreamHandler(  __DIR__ . '/../storage/log/app.log' ) ;
+	    $logger->pushHandler( $file_handler ) ;
+
+	    return $logger;
+
+	} ;
 
 	//Set Global TimeZone
 	//
@@ -70,6 +82,7 @@
 	$container['auth'] 				= function( $container ) { return new \App\Auth\Auth ; } ;
 	
 	$container['HelpAuth'] 			= function( $container ) { return new \App\Classes\Auth( $container ) ; } ;
+	$container['Queue'] 			= function( $container ) { return new \App\Classes\Queue( $container ) ; } ;
 	$container['Contact'] 			= function( $container ) { return new \App\Classes\Contact( $container ) ; } ;
 
 	//Register our validation class as a global.
@@ -87,7 +100,11 @@
 	        'cache' 				=> false,
 	    ]);
 	    // Instantiate and add Slim specific extension
-	    $router 					= $container->get('router');
+	    $router 					= $container->get('router') ;
+
+	    $request   					= $container['request'] ;
+		$url       					= $request->getUri() ;
+		$path       				= $url->getPath() ;
 
 	    $uri 						= \Slim\Http\Uri::createFromEnvironment( 
 	    	new \Slim\Http\Environment( $_SERVER ) 
@@ -116,12 +133,15 @@
 		$view->getEnvironment()->addGlobal( 'contact_details', $container['settings']['contact_details'] ) ;
 		$view->getEnvironment()->addGlobal( 'Carbon', new Carbon\Carbon ) ;
 
+		$view->getEnvironment()->addGlobal( 'route_name', $path ) ;
+
 	    return $view;
 	    
 	} ;
 
 	//Binding routes to controllers
 	//
+	$container['CronController'] 		= function( $container ) { return new \App\Controllers\CronController( $container ) ; } ;
 	$container['HomeController'] 		= function( $container ) { return new \App\Controllers\HomeController( $container ) ; } ;
 	$container['ContactController'] 	= function( $container ) { return new \App\Controllers\ContactController ( $container ) ; } ;
 	$container['ProfileController'] 	= function( $container ) { return new \App\Controllers\ProfileController( $container ) ; } ;
@@ -129,7 +149,16 @@
 
 	//CSRF binding.
 	//
-	$container['csrf'] 					= function( $container ) { return new \Slim\Csrf\Guard ; } ;
+	$container['csrf'] 					= function( $container ) { 
+
+	    $guard = new \Slim\Csrf\Guard();
+	    $guard->setFailureCallable(function ($request, $response, $next) {
+	        $request = $request->withAttribute("csrf_status", false);
+	        return $next($request, $response);
+	    });
+	    return $guard;
+
+	} ;
 
 
 	$container['mailer'] 				= function ($container) {
@@ -167,6 +196,42 @@
 	$app->add( new \App\Middleware\CsrfMiddleware( $container ) ) ;
 
 	$app->add( $container->csrf ) ;
+
+	//Handling 404
+	//
+	unset( $container[ 'notFoundHandler' ] ) ;
+
+	$container['notFoundHandler'] 		= function ( $container ) {
+
+	    return function ($request, $response) use ( $container ) {
+
+	        $response 					= new \Slim\Http\Response(404) ;
+	        return $container->view->render( $response, 'errors/404.twig' ) ;
+
+	    };
+
+	};
+
+	$container['errorHandler'] 			= function ( $container ) {
+
+	    return function ($request, $response, $exception) use ( $container ) {
+
+	       	$response 					= new \Slim\Http\Response( 500 ) ;
+	        $container->logger->addError( $exception ) ;
+	        return $container->view->render( $response, 'errors/error.twig', [ 'error' => $exception->getMessage() ] ) ;
+
+	    };
+	};
+
+	$container['phpErrorHandler'] 		= function ($container) {
+	    return function ($request, $response, $error) use ($container) {
+
+	    	$response 					= new \Slim\Http\Response( 500 ) ;
+	        $container->logger->addError( $error ) ;
+	        return $container->view->render( $response, 'errors/error.twig', [ 'error' => $error ] ) ;
+
+	    };
+	};
 
 	v::with( 'App\\Validation\\Rules\\' ) ;
 

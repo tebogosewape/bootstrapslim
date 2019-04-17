@@ -10,8 +10,14 @@
 		
 		protected $fillable = [
 
-			'name', 'surname', 'email', 'phone_number', 'password', 'referral_code', 'is_active', 'email_token',
+			'name', 'surname', 'email', 'phone_number', 'password', 'is_active', 'email_token',
 
 		] ;
+
+	    public function jobs() {
+
+	        return $this->hasMany( User::QueueJob ) ;
+	        
+	    }
 
 	}
