@@ -1,0 +1,40 @@
+{
+  "name": "bootstrapslim",
+  "version": "1.0.0",
+  "description": "<p>\r \t<strong>NOTE:</strong> This is not a new framework, this is a boilerplate to quickly bootstrap a new <a href=\"https://www.slimframework.com/\" >Slim Framework</a> and use a <a href=\"https://laravel.com/\" >Laravel</a> like syntax.\r \t<br />\r \t<strong>If you are looking for <a href=\"https://www.slimframework.com/\" >Slim Framework</a> this is not the page this is <a href=\"https://www.slimframework.com/\" >Slim Framework</a>.</strong>\r \t<br />\r \tThis boilerplate, has <a href=\"https://getbootstrap.com/docs/3.3/\" >Bootstrap 4.3.1</a> ready to go, <a href=\"https://laravel.com/\" >Laravel</a> Like structure and controllers.\r </p>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress --display-error-details",
+    "start": "webpack-dev-server --progress --colors --inline --content-base build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tebogosewape/bootstrapslim.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tebogosewape/bootstrapslim/issues"
+  },
+  "homepage": "https://github.com/tebogosewape/bootstrapslim#readme",
+  "devDependencies": {
+    "css-loader": "^2.1.1",
+    "file-loader": "^3.0.1",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^1.9.1",
+    "popper.js": "^1.14.7",
+    "vue": "^2.6.10"
+  }
+}
